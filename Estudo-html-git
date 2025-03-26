@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Produção</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #ffffff;
+            border-left: 5px solid #007BFF;
+            border-radius: 5px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+        .row div {
+            flex: 1;
+        }
+        small {
+            display: block;
+            color: #666;
+        }
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registro de Produção</h2>
+
+        <form action="#" method="post">
+
+            <!-- Seção Identificação -->
+            <div class="section">
+                <h3>Identificação</h3>
+
+                <!-- Descrição do Posto de Trabalho -->
+                <label for="posto">Descrição do Posto de Trabalho</label>
+                <div class="row">
+                    <select id="posto" name="posto">
+                        <option value="">Selecione...</option>
+                        <option value="posto1">Posto 1</option>
+                        <option value="posto2">Posto 2</option>
+                    </select>
+                    <button type="button" onclick="editarPosto()">✎</button>
+                </div>
+
+                <!-- Centro de Custo -->
+                <label for="centro">Centro de Custo</label>
+                <div class="row">
+                    <select id="centro" name="centro">
+                        <option value="">Selecione...</option>
+                        <option value="centro1">Centro 1</option>
+                        <option value="centro2">Centro 2</option>
+                    </select>
+                    <button type="button" onclick="editarCentro()">✎</button>
+                </div>
+            </div>
+
+            <!-- Seção Dados de Produção -->
+            <div class="section">
+                <h3>Dados da Produção</h3>
+
+                <label for="data">Data da Produção</label>
+                <input type="date" id="data" name="data" required>
+
+                <label for="acidentes">Número de Acidentes</label>
+                <input type="number" id="acidentes" name="acidentes" min="0" required>
+
+                <label for="produzido">Total Produzido</label>
+                <input type="number" id="produzido" name="produzido" min="0" required>
+
+                <label for="rejeitado">Total Rejeitado</label>
+                <input type="number" id="rejeitado" name="rejeitado" min="0" required>
+
+                <label for="retrabalhos">Total Retrabalhos</label>
+                <input type="number" id="retrabalhos" name="retrabalhos" min="0" required>
+            </div>
+
+            <!-- Seção Eficiência -->
+            <div class="section">
+                <h3>Eficiência</h3>
+
+                <label for="emd">Eficiência Mão de Obra (EMD) (%)</label>
+                <input type="number" id="emd" name="emd" step="0.01" min="0" max="100" required>
+
+                <label for="oee">Eficiência Equipamento (OEE) (%)</label>
+                <input type="number" id="oee" name="oee" step="0.01" min="0" max="100" required>
+            </div>
+
+            <!-- Seção Comentários -->
+            <div class="section">
+                <h3>Comentários</h3>
+
+                <label for="comentarios">Comentários do dia</label>
+                <textarea id="comentarios" name="comentarios" maxlength="250" oninput="atualizarContador()"></textarea>
+                <div class="char-count"><span id="contador">250</span> caracteres restantes</div>
+            </div>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        function editarPosto() {
+            let novoPosto = prompt("Digite um novo posto de trabalho:");
+            if (novoPosto) {
+                let select = document.getElementById("posto");
+                let option = document.createElement("option");
+                option.value = novoPosto.toLowerCase();
+                option.text = novoPosto;
+                select.add(option);
+                select.value = option.value;
+            }
+        }
+
+        function editarCentro() {
+            let novoCentro = prompt("Digite um novo centro de custo:");
+            if (novoCentro) {
+                let select = document.getElementById("centro");
+                let option = document.createElement("option");
+                option.value = novoCentro.toLowerCase();
+                option.text = novoCentro;
+                select.add(option);
+                select.value = option.value;
+            }
+        }
+
+        function atualizarContador() {
+            let comentarios = document.getElementById("comentarios");
+            let contador = document.getElementById("contador");
+            contador.textContent = 250 - comentarios.value.length;
+        }
+    </script>
+
+</body>
+</html>
